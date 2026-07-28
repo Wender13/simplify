@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- Gradiente Único e Contínuo (Da Base Azul para o Topo Verde/Crescimento) -->
+    <linearGradient id="gradFlow" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2979FF" />   <!-- Azul Profundo -->
+      <stop offset="35%" stop-color="#00E5FF" />  <!-- Ciano -->
+      <stop offset="70%" stop-color="#1DE9B6" />  <!-- Esmeralda -->
+      <stop offset="100%" stop-color="#00E676" /> <!-- Lima -->
+    </linearGradient>
+    
+    <!-- Gradientes 3D das Moedas/Dados -->
+    <linearGradient id="gradCoinTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0F7FA" />
+      <stop offset="100%" stop-color="#00E5FF" />
+    </linearGradient>
+    <linearGradient id="gradCoinSide" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00838F" />
+      <stop offset="100%" stop-color="#00B8D4" />
+    </linearGradient>
+
+    <!-- Filtros de Sombras 3D (Oclusão e Profundidade) -->
+    <filter id="shadow-deep" x="-30%" y="-30%" width="160%" height="160%">
+      <!-- Sombra projetada mais densa para destacar o peso do S -->
+      <feDropShadow dx="0" dy="20" stdDeviation="20" flood-color="#000000" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    
+    <filter id="shadow-coin" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+
+    <!-- Filtro de Brilho Neon (Glow) -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Grupo Principal Centralizado no Canvas 800x800 -->
+  <g transform="translate(20, 110)">
+    
+    <!-- 1. LETRA 'S' CONTÍNUA (Fluxo de Ponta Dupla mais Espesso) -->
+    <g filter="url(#shadow-deep)">
+      
+      <!-- Corpo Principal do 'S' -->
+      <path id="s-body" d="M 300,620 
+               L 450,470
+               L 330,470 
+               A 80,80 0 0,1 250,390 
+               L 250,370 
+               A 80,80 0 0,1 330,290 
+               L 430,290
+               A 80,80 0 0,0 510,210
+               L 510,190
+               A 80,80 0 0,0 430,110
+               L 320,110
+               L 470,-40" 
+            fill="none" 
+            stroke="url(#gradFlow)" 
+            stroke-width="64" 
+            stroke-linecap="round" 
+            stroke-linejoin="round" />
+            
+      <!-- Ponta da Seta (Topo Direita) -->
+      <path id="s-arrow-top" d="M 360,-40 L 470,-40 L 470,70" 
+            fill="none" 
+            stroke="url(#gradFlow)" 
+            stroke-width="64" 
+            stroke-linecap="round" 
+            stroke-linejoin="round" />
+
+      <!-- Cauda Reta (Base Esquerda) -->
+      <path id="s-arrow-bottom" d="M 300,510 L 300,620" 
+            fill="none" 
+            stroke="url(#gradFlow)" 
+            stroke-width="64" 
+            stroke-linecap="round" 
+            stroke-linejoin="round" />
+            
+      <!-- Reflexos 3D / Iluminação de Borda (Rim Light) -->
+      <!-- O stroke do reflexo também foi ajustado para manter a proporção -->
+      <use href="#s-body" stroke="#FFFFFF" fill="none" stroke-width="6" opacity="0.4" transform="translate(-2, -2)" />
+      <use href="#s-arrow-top" stroke="#FFFFFF" fill="none" stroke-width="6" opacity="0.4" transform="translate(-2, -2)" />
+      <use href="#s-arrow-bottom" stroke="#FFFFFF" fill="none" stroke-width="6" opacity="0.4" transform="translate(-2, -2)" />
+    </g>
+
+    <!-- 2. PILHAS DE MOEDAS (Dados 3D flutuando na curva) -->
+    <!-- Posições milimetricamente realinhadas para a nova espessura do S -->
+    <g transform="translate(305, 360)">
+      <!-- Pilha 1 (Esquerda) -->
+      <g filter="url(#shadow-coin)" transform="translate(0, 40)">
+          <path d="M 0,0 C 0,10 40,10 40,0 L 40,-12 C 40,-2 0,-2 0,-12 Z" fill="url(#gradCoinSide)" />
+          <ellipse cx="20" cy="-12" rx="20" ry="6" fill="url(#gradCoinTop)" />
+      </g>
+      <g filter="url(#shadow-coin)" transform="translate(0, 20)">
+          <path d="M 0,0 C 0,10 40,10 40,0 L 40,-12 C 40,-2 0,-2 0,-12 Z" fill="url(#gradCoinSide)" />
+          <ellipse cx="20" cy="-12" rx="20" ry="6" fill="url(#gradCoinTop)" />
+      </g>
+      <g filter="url(#shadow-coin)" transform="translate(0, 0)">
+          <path d="M 0,0 C 0,10 40,10 40,0 L 40,-12 C 40,-2 0,-2 0,-12 Z" fill="url(#gradCoinSide)" />
+          <ellipse cx="20" cy="-12" rx="20" ry="6" fill="url(#gradCoinTop)" />
+          <!-- Anel de brilho na moeda do topo -->
+          <ellipse cx="20" cy="-12" rx="18" ry="4" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7" />
+      </g>
+    </g>
+
+    <g transform="translate(365, 340)">
+      <!-- Pilha 2 (Direita) -->
+      <g filter="url(#shadow-coin)" transform="translate(0, 40)">
+          <path d="M 0,0 C 0,10 40,10 40,0 L 40,-12 C 40,-2 0,-2 0,-12 Z" fill="url(#gradCoinSide)" />
+          <ellipse cx="20" cy="-12" rx="20" ry="6" fill="url(#gradCoinTop)" />
+      </g>
+      <g filter="url(#shadow-coin)" transform="translate(0, 20)">
+          <path d="M 0,0 C 0,10 40,10 40,0 L 40,-12 C 40,-2 0,-2 0,-12 Z" fill="url(#gradCoinSide)" />
+          <ellipse cx="20" cy="-12" rx="20" ry="6" fill="url(#gradCoinTop)" />
+      </g>
+      <g filter="url(#shadow-coin)" transform="translate(0, 0)">
+          <path d="M 0,0 C 0,10 40,10 40,0 L 40,-12 C 40,-2 0,-2 0,-12 Z" fill="url(#gradCoinSide)" />
+          <ellipse cx="20" cy="-12" rx="20" ry="6" fill="url(#gradCoinTop)" />
+          <ellipse cx="20" cy="-12" rx="18" ry="4" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7" />
+      </g>
+    </g>
+
+    <!-- 3. PONTOS DE LUZ NEON (Energia nas extremidades) -->
+    <!-- Brilho Topo (Verde/Crescimento) -->
+    <circle cx="470" cy="-40" r="18" fill="#FFFFFF" opacity="0.9" filter="url(#glow)" />
+    <!-- Brilho Base (Azul/Ciano) -->
+    <circle cx="300" cy="620" r="18" fill="#00E5FF" opacity="0.9" filter="url(#glow)" />
+
+  </g>
+</svg>
