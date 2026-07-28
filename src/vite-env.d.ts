@@ -5,3 +5,10 @@ declare module "*.vue" {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+
+// Adiciona o Tauri ao objeto global Window do TypeScript
+declare global {
+  interface Window {
+    __TAURI__?: Record<string, unknown>;
+  }
+}
