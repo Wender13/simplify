@@ -2,12 +2,12 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div v-if="!true" class="Toast">Toast</div>
+  <div class="Sidebar"></div>
 </template>
 
 <style scoped>
-.Toast {
+.Sidebar {
   width: 100vw;
-  height: 100vh;
+  height: clamp(min, best, max);
 }
 </style>

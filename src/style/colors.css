@@ -1,0 +1,14 @@
+:root {
+  color-scheme: light dark;
+
+  --bg: light-dark(#e8e4f1, #09070d);
+  --text: light-dark(#09070d, #e8e4f1);
+  --primary: #5014db;
+  --secondary: #321098;
+  --accent: #541ef6;
+
+  --surface: light-dark(#f4f2fa, #14101f);
+  --border: light-dark(#d8d3e8, #2a2138);
+  --text-secondary: light-dark(#565266, #b8b3c9);
+  --primary-soft: light-dark(#ede9fb, #1f1436);
+}

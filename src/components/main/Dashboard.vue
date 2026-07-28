@@ -2,12 +2,11 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div v-if="!true" class="Toast">Toast</div>
+  <div class="Dashboard"></div>
 </template>
 
 <style scoped>
-.Toast {
+.Dashboard {
   width: 100vw;
-  height: 100vh;
 }
 </style>

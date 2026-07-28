@@ -1,5 +1,12 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts"></script>
 
-<template></template>
+<template>
+  <div class="HeaderScreen"></div>
+</template>
 
-<style scoped></style>
+<style scoped>
+.HeaderScreen {
+  width: 100vw;
+}
+</style>
