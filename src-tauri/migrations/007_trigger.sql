@@ -1,11 +1,11 @@
-CREATE TRIGGER IF NOT EXISTS tr_atualiza_meta_transacao
-AFTER INSERT ON transacao
+CREATE TRIGGER IF NOT EXISTS tr_update_financial_target
+AFTER INSERT ON transaction
 FOR EACH ROW
-WHEN NEW.tipo = 'DESPESA'
+WHEN NEW.type = 'EXPENSE'
 BEGIN
-    UPDATE meta_financeira
-    SET valor_atual = valor_atual + NEW.valor
-    WHERE id_usuario   = NEW.id_usuario
-      AND id_categoria = NEW.id_categoria
-      AND ativa        = 1;
+    UPDATE financial_target
+    SET current_value = current_value + NEW.value
+    WHERE id_user = NEW.id_user
+      AND id_category = NEW.id_category
+      AND active = 1;
 END;
