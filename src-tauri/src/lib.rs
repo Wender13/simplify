@@ -2,7 +2,8 @@ use sqlx::SqlitePool;
 use tauri::Manager;
 
 mod db;
-mod commands;
+mod controllers;
+mod models;
 
 pub type DbPool = SqlitePool;
 
