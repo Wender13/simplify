@@ -1,5 +1,5 @@
 CREATE TRIGGER IF NOT EXISTS tr_update_financial_target
-AFTER INSERT ON transaction
+AFTER INSERT ON transactions
 FOR EACH ROW
 WHEN NEW.type = 'EXPENSE'
 BEGIN
