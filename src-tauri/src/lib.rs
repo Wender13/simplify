@@ -1,8 +1,13 @@
-use sqlx::SqlitePool;
+use std::{str::FromStr, time::Duration};
+
+use sqlx::{
+    sqlite::{SqliteConnectOptions, SqlitePoolOptions},
+    SqlitePool,
+};
 use tauri::Manager;
 
-mod db;
 mod controllers;
+mod db;
 mod models;
 
 pub type DbPool = SqlitePool;
@@ -14,26 +19,44 @@ pub fn run() {
         .setup(|app| {
             let app_handle = app.handle().clone();
 
-            tauri::async_runtime::block_on(async move {
-                let db_path = app_handle
-                    .path()
-                    .app_data_dir()
-                    .expect("erro ao obter diretório de dados")
-                    .join("simplify.db");
+            let db_dir = app_handle
+                .path()
+                .app_data_dir()
+                .expect("Failed to get database directory!")
+                .join("simplify");
 
-                let db_url = format!("sqlite://{}?mode=rwc", db_path.display());
+            std::fs::create_dir_all(&db_dir).expect("Failed to create database path!");
 
-                let pool = SqlitePool::connect(&db_url)
+            let db_path = db_dir.join("simplify.db");
+
+            let db_url = format!("sqlite://{}?mode=rwc", db_path.display());
+
+            let connect_options = SqliteConnectOptions::from_str(&db_url)
+                .expect("Failed to parse db url!")
+                .journal_mode(sqlx::sqlite::SqliteJournalMode::Wal)
+                .foreign_keys(true);
+
+            let pool_options = SqlitePoolOptions::new()
+                .max_connections(5)
+                .min_connections(1)
+                .acquire_timeout(Duration::from_secs(5))
+                .idle_timeout(Duration::from_secs(300));
+
+            let pool = tauri::async_runtime::block_on(async move {
+                let pool = pool_options
+                    .connect_with(connect_options)
                     .await
-                    .expect("erro ao conectar com o banco de dados");
+                    .expect("Failed to connect with database!");
 
                 db::run_migrations(&pool)
                     .await
-                    .expect("erro ao executar migrations");
+                    .expect("Failed to run migrations!");
 
-                app_handle.manage(pool);
+                pool
             });
 
+            app_handle.manage(pool);
+            db::set_app_handle(app_handle);
             Ok(())
         })
         // .invoke_handler(tauri::generate_handler![])
