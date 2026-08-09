@@ -1,13 +1,11 @@
-use std::sync::OnceLock;
 use sqlx::SqlitePool;
+use std::sync::OnceLock;
 use tauri::{AppHandle, Manager};
 
 static APP_HANDLE: OnceLock<AppHandle> = OnceLock::new();
 
 pub fn set_app_handle(handle: AppHandle) {
-    APP_HANDLE
-        .set(handle)
-        .expect("App handle already started!");
+    APP_HANDLE.set(handle).expect("App handle already started!");
 }
 
 pub fn pool() -> SqlitePool {
