@@ -1,10 +1,11 @@
-use chrono::{DateTime, Utc};
+// use chrono::{DateTime, Utc};
 
-pub struct User {
-  id: i64,
-  name: String,
-  email: String,
-  password_hash: String,
-  created_at: DateTime<Utc>,
-  last_login: DateTime<Utc>,
-}
+// #[derive(sqlx::FromRow)]
+// pub struct User {
+//   pub id: i64,
+//   pub name: String,
+//   pub email: String,
+//   pub password_hash: String,
+//   pub created_at: DateTime<Utc>,
+//   pub last_login: DateTime<Utc>,
+// }

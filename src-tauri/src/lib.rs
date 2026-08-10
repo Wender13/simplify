@@ -6,9 +6,10 @@ use sqlx::{
 };
 use tauri::Manager;
 
-mod controllers;
-mod db;
-mod models;
+pub mod controllers;
+pub mod db;
+pub mod dto;
+pub mod repository;
 
 pub type DbPool = SqlitePool;
 
@@ -57,9 +58,51 @@ pub fn run() {
 
             app_handle.manage(pool);
             db::set_app_handle(app_handle);
+
+            tauri::async_runtime::block_on(test_new_user());
             Ok(())
         })
         // .invoke_handler(tauri::generate_handler![])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+// async fn test_new_user() {
+//     println!("---Before testing---");
+
+//     let name = "User name teste".into();
+//     let email = "test@domain.dev".into();
+//     let password = "passwordTest".into();
+
+//     let result = controllers::user_controller::create_user(name, email, password).await;
+
+//     println!("---After testing---");
+//     println!("---Result---");
+
+//     match result {
+//         Ok(command_result) => {
+//             println!("Sucess: {}", command_result.success);
+//             println!("Message key: {}", command_result.message_key);
+//         }
+//         Err(e) => println!("Error: {}", e.to_string()),
+//     }
+// }
+
+async fn test_new_user() {
+    println!("---Before testing---");
+
+    let email = "test@domain.dev".into();
+
+    let result = controllers::user_controller::delete_user(email).await;
+
+    println!("---After testing---");
+    println!("---Result---");
+
+    match result {
+        Ok(command_result) => {
+            println!("Sucess: {}", command_result.success);
+            println!("Message key: {}", command_result.message_key);
+        }
+        Err(e) => println!("Error: {}", e.to_string()),
+    }
 }
