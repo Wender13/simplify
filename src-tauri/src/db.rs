@@ -18,7 +18,10 @@ pub fn pool() -> SqlitePool {
 }
 
 pub async fn run_migrations(pool: &SqlitePool) -> Result<(), sqlx::Error> {
-    sqlx::migrate!("./migrations").run(pool).await.expect("Failed to run sql migration files!");
+    sqlx::migrate!("./migrations/")
+        .run(pool)
+        .await
+        .expect("Failed to run sql migration files!");
 
     Ok(())
 }
