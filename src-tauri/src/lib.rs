@@ -6,10 +6,11 @@ use sqlx::{
 };
 use tauri::Manager;
 
+pub mod repository;
 pub mod controllers;
+pub mod models;
 pub mod db;
 pub mod dto;
-pub mod repository;
 
 pub type DbPool = SqlitePool;
 
