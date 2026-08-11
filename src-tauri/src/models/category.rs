@@ -1,3 +1,4 @@
+#[derive(sqlx::FromRow)]
 pub struct Category {
     id_category: i64,
     id_user: i64,
@@ -8,6 +9,6 @@ pub struct Category {
 }
 
 enum CategoryType {
-  Income,
-  Expense,
+    Income,
+    Expense,
 }
