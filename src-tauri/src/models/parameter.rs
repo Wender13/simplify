@@ -1,4 +1,4 @@
-#[derive(sqlx::FromRow, serde::Serialize)]
+#[derive(sqlx::FromRow, serde::Serialize, serde::Deserialize)]
 pub struct Parameter {
     pub id_parameter: i64,
     pub name: String,
