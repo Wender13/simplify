@@ -5,18 +5,13 @@ pub enum UpdateSystemStatusResult {
     SystemStatusNotUpdated,
 }
 
-pub async fn get_system_status() -> Result<String, String> {
+pub async fn get_system_status() -> Result<Vec<SystemStatus>, String> {
     let pool = db::pool();
 
-    let system_status = sqlx::query_as::<_, SystemStatus>(
-        "SELECT id_system_status, name, value FROM system_status",
-    )
-    .fetch_all(&pool)
-    .await
-    .map_err(|e| e.to_string());
-    let system_status_json = serde_json::to_string(&system_status).map_err(|e| e.to_string())?;
-
-    Ok(system_status_json)
+    sqlx::query_as::<_, SystemStatus>("SELECT id_system_status, name, value FROM system_status")
+        .fetch_all(&pool)
+        .await
+        .map_err(|e| e.to_string())
 }
 
 pub async fn update_system_status(

@@ -5,17 +5,13 @@ pub enum UpdateParameterResult {
     ParameterNotUpdated,
 }
 
-pub async fn get_parameters() -> Result<String, String> {
+pub async fn get_parameters() -> Result<Vec<Parameter>, String> {
     let pool = db::pool();
 
-    let parameters =
-        sqlx::query_as::<_, Parameter>("SELECT id_parameter, name, value FROM parameters")
-            .fetch_all(&pool)
-            .await
-            .map_err(|e| e.to_string());
-    let parameters_json = serde_json::to_string(&parameters).map_err(|e| e.to_string())?;
-
-    Ok(parameters_json)
+    sqlx::query_as::<_, Parameter>("SELECT id_parameter, name, value FROM parameters")
+        .fetch_all(&pool)
+        .await
+        .map_err(|e| e.to_string())
 }
 
 pub async fn update_parameter(
