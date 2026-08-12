@@ -14,6 +14,7 @@ pub async fn create_user(
         return Ok(CommandResult {
             success: false,
             message_key: "user.emptyUserData".into(),
+            list_fail: Vec::new(),
         });
     }
 
@@ -21,10 +22,12 @@ pub async fn create_user(
         CreateUserResult::Created => Ok(CommandResult {
             success: true,
             message_key: "user.userCreated".into(),
+            list_fail: Vec::new(),
         }),
         CreateUserResult::EmailTaken => Ok(CommandResult {
             success: false,
             message_key: "user.emailTaken".into(),
+            list_fail: Vec::new(),
         }),
     }
 }
@@ -36,6 +39,7 @@ pub async fn delete_user(email: String) -> Result<CommandResult, String> {
         return Ok(CommandResult {
             success: false,
             message_key: "user.emptyUserData".into(),
+            list_fail: Vec::new(),
         });
     }
 
@@ -43,10 +47,12 @@ pub async fn delete_user(email: String) -> Result<CommandResult, String> {
         DeleteUserResult::Deleted => Ok(CommandResult {
             success: true,
             message_key: "user.userDeleted".into(),
+            list_fail: Vec::new(),
         }),
         DeleteUserResult::UserNotFound => Ok(CommandResult {
             success: false,
             message_key: "user.userNotFound".into(),
+            list_fail: Vec::new(),
         }),
     }
 }
