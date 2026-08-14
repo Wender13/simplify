@@ -3,7 +3,10 @@ import { ref } from "vue";
 import { SystemStatus } from "@/core/models/system_status";
 import { CommandResult } from "@/core/models/dto/command_result";
 
-import { getSystemStatus, updateSystemStatus } from "@/core/services/system_status_service";
+import {
+  getSystemStatus,
+  updateSystemStatus,
+} from "@/core/services/system_status_service";
 
 export function useSystemStatus() {
   const systemStatus = ref<SystemStatus[]>();
@@ -23,9 +26,21 @@ export function useSystemStatus() {
     return err;
   }
 
-  async function saveSystemStatus(systemStatus: SystemStatus[]): Promise<CommandResult> {
-    return await updateSystemStatus(systemStatus);
+  async function saveSystemStatus(
+    systemStatusToUpdate: SystemStatus[],
+  ): Promise<CommandResult> {
+    return await updateSystemStatus(systemStatusToUpdate);
   }
 
-  return { systemStatus, loading, loadSystemStatus, saveSystemStatus };
+  function getByName(name: string): SystemStatus | undefined {
+    return systemStatus.value?.find((s) => s.name === name);
+  }
+
+  return {
+    systemStatus,
+    loading,
+    loadSystemStatus,
+    saveSystemStatus,
+    getByName,
+  };
 }
