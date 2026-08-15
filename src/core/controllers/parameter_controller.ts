@@ -3,7 +3,10 @@ import { ref } from "vue";
 import { Parameter } from "@/core/models/parameter";
 import { CommandResult } from "@/core/models/dto/command_result";
 
-import { getParameters, updateParameters } from "@/core/services/parameter_service";
+import {
+  getParameters,
+  updateParameters,
+} from "@/core/services/parameter_service";
 
 export function useParameters() {
   const parameters = ref<Parameter[]>();
@@ -15,6 +18,7 @@ export function useParameters() {
     let err: string | null = null;
     try {
       parameters.value = await getParameters();
+      
     } catch (error) {
       err = error as string;
     } finally {
@@ -23,7 +27,9 @@ export function useParameters() {
     return err;
   }
 
-  async function saveParameters(parameters: Parameter[]): Promise<CommandResult> {
+  async function saveParameters(
+    parameters: Parameter[],
+  ): Promise<CommandResult> {
     return await updateParameters(parameters);
   }
 
