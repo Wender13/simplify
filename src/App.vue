@@ -2,9 +2,7 @@
 // ---------Debbuging---------
 import ToggleFullScreen from "@/components/debug/ToggleFullScreen.vue";
 
-import { computed } from "vue";
-// import { ref } from "vue";
-// import { invoke } from "@tauri-apps/api/core";
+import { computed, onMounted } from "vue";
 
 import { useAppStore, AppScreen } from "@/stores/app.store.ts";
 
@@ -23,6 +21,10 @@ const screens = {
   [AppScreen.Login]: Login,
   [AppScreen.Main]: Main,
 };
+
+onMounted(() => {
+  appStore.bootstrap();
+});
 
 const currentScreen = computed(() => screens[appStore.currentScreen]);
 </script>
