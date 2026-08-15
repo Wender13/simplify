@@ -1,12 +1,15 @@
 <!-- eslint-disable vue/multi-word-component-names -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <template>
-  <div class="Splash">Splash</div>
+  <div class="first-setting flex column center">
+
+  </div>
 </template>
 
 <style scoped>
-.Splash {
+.first-setting {
   width: 100vw;
   height: 100vh;
 }
