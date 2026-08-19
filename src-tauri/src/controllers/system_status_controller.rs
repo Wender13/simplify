@@ -1,12 +1,18 @@
-use crate::{dto::command_result::CommandResult, models::SystemStatus, repository::system_status_repository::{self, UpdateSystemStatusResult}};
+use crate::{
+    dto::command_result::CommandResult,
+    models::SystemStatus,
+    repository::system_status_repository::{self, UpdateSystemStatusResult},
+};
 
 #[tauri::command]
 pub async fn get_system_status() -> Result<Vec<SystemStatus>, String> {
-  system_status_repository::get_system_status().await
+    system_status_repository::get_system_status().await
 }
 
 #[tauri::command]
-pub async fn update_system_status(system_status: Vec<SystemStatus>) -> Result<CommandResult, String> {
+pub async fn update_system_status(
+    system_status: Vec<SystemStatus>,
+) -> Result<CommandResult, String> {
     let mut list_fail = Vec::new();
     for s_s in system_status {
         let result =

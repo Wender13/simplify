@@ -6,11 +6,11 @@ use sqlx::{
 };
 use tauri::Manager;
 
-pub mod repository;
 pub mod controllers;
-pub mod models;
 pub mod db;
 pub mod dto;
+pub mod models;
+pub mod repository;
 
 pub use controllers::parameter_controller;
 pub use controllers::system_status_controller;
@@ -65,7 +65,12 @@ pub fn run() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![parameter_controller::get_parameters, parameter_controller::update_parameters, system_status_controller::get_system_status, system_status_controller::update_system_status])
+        .invoke_handler(tauri::generate_handler![
+            parameter_controller::get_parameters,
+            parameter_controller::update_parameters,
+            system_status_controller::get_system_status,
+            system_status_controller::update_system_status
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
